@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+    background:#0f172a;
+    overflow-x:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* background shapes */
+
+.rec1,.rec2,.rec3,.rec4{
+    position:fixed;
+    width:14vw;
+    min-width:120px;
+    height:60vh;
+    transform:rotate(-30deg);
+}
+
+.rec1{ background:#ff7a00; left:70vw; top:-10vh; }
+.rec2{ background:#c60000eb; left:85vw; top:-10vh; height:80vh;}
+.rec3{ background:#ff820c; left:10vw; top:40vh;}
+.rec4{ background:#c60000eb; left:-8vw; top:-10vh; height:100vh;}
+
+/* animated blocks */
+
+.rec5,.rec6{
+    position:absolute;
+    width:12vw;
+    min-width:100px;
+    height:12vw;
+    min-height:100px;
+    background:gray;
+    transform:rotate(-30deg);
+}
+
+.rec5{
+    left:80vw;
+    top:40vh;
+    animation:bm1 1s infinite alternate;
+}
+
+.rec6{
+    left:2vw;
+    top:15vh;
+    animation:bm2 1s infinite alternate;
+}
+
+@keyframes bm1{
+    from{ transform:rotate(-30deg) translateY(0);}
+    to{ transform:rotate(-30deg) translateY(15px);}
+}
+
+@keyframes bm2{
+    from{ transform:rotate(-30deg) translateY(0);}
+    to{ transform:rotate(-30deg) translateY(-15px);}
+}
+
+/* login box */
+
+.rec7{
+    width:90%;
+    max-width:380px;
+    border:1px solid white;
+    border-radius:12px;
+    color:white;
+    padding:20px;
+    animation:b 1s ease-in-out forwards;
+}
+
+@keyframes b{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+.W{
+    text-align:center;
+    font-size:26px;
+    margin-bottom:20px;
+}
+
+input{
+    background:none;
+    border:1px solid white;
+    width:100%;
+    height:38px;
+    text-align:center;
+    border-radius:10px;
+    margin-bottom:15px;
+    color:white;
+}
+
+input:hover{ transform:scale(1.02); }
+
+.u,.p{
+    margin-bottom:5px;
+}
+
+button{
+    width:100%;
+    height:42px;
+    background:#ececec;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{ transform:scale(1.03); }
+
+/* desktop adjustments */
+
+@media (min-width:900px){
+    .rec7{
+        max-width:420px;
+        padding:25px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="rec1"></div>
+<div class="rec2"></div>
+<div class="rec3"></div>
+<div class="rec4"></div>
+<div class="rec5"></div>
+<div class="rec6"></div>
+
+<div class="rec7">
+    <p class="W">LOGIN</p>
+
+    <div class="u">User Name :</div>
+    <input type="text" placeholder="Enter your user Id" id="name">
+
+    <div class="p">Password :</div>
+    <input type="password" placeholder="Enter your Password" id="password">
+
+    <p id="message"></p>
+
+    <button id="button" type="button" onclick="save()">Sign in</button>
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    const password=document.getElementById("password");
+    const message=document.getElementById("message");
+
+    password.addEventListener("input",function(){
+
+        let pas=password.value;
+        let dig=pas.match(/\d/g);
+
+        if(dig && dig.length>=4){
+            message.textContent="Valid password!";
+            message.style.color="lime";
+        }
+        else{
+            message.textContent="Password must contain at least 4 digits";
+            message.style.color="red";
+        }
+
+    });
+
+});
+
+function save(){
+
+    const name=document.getElementById("name").value;
+    const pass=document.getElementById("password").value;
+
+    if(name===""){
+        alert("Enter the user name!");
+        return;
+    }
+
+    if(pass===""){
+        alert("Enter the password!");
+        return;
+    }
+
+    localStorage.setItem("nam",name);
+    localStorage.setItem("pas",pass);
+
+    window.location.href="index.html";
+}
+
+</script>
+
+</body>
+</html>
